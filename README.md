@@ -1,5 +1,8 @@
 # Temp Reporter
 
+**現在開発途中です<br>
+Currently under development**
+
 🇯🇵[**日本語**](README.md) 👈ｲﾏｺｺ<br>
 🇺🇸[**English**](docs/README_en.md)
 
