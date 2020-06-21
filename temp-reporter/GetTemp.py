@@ -39,5 +39,27 @@ class GetTemp:
         print("Done.")
         return {"humidity": float(sumHumi / times), "temp": float(sumTemp / times)}
     
+    def calcTHI(self, t, h):
+        thi = 0.81 * t + 0.01 * h * (0.99 * t - 14.3) + 46.3
+        return thi
+    
+    def thiFeeling(self, thi):
+        if thi < 55:
+            return "寒い"
+        elif thi < 60:
+            return "肌寒い"
+        elif thi < 65:
+            return "ふつう"
+        elif thi < 70:
+            return "快い"
+        elif thi < 75:
+            return "暑くはない"
+        elif thi < 80:
+            return "やや暑い"
+        elif thi < 85:
+            return "暑くて汗が出る"
+        else:
+            return "暑くてたまらない"
+    
     def closeSerialPort(self):
         self.ser.close()
