@@ -10,7 +10,7 @@ class GetTemp:
         self.ser.open()
 
 
-    def getFromArduino(self, port, rate):
+    def getFromArduino(self):
         line = self.ser.readLine()
         values = list(float(line.split()))
         return values
