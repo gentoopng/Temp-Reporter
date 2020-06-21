@@ -1,7 +1,9 @@
 # ライブラリ pySerialを使用
 import serial
+import re
 
 class GetTemp:
+    ser = None
     def __init__(self, port, rate):
         self.ser = serial.Serial()
         self.ser.port = port
@@ -11,8 +13,15 @@ class GetTemp:
 
 
     def getFromArduino(self):
-        line = self.ser.readLine()
-        values = list(float(line.split()))
+        line1, line2 = self.ser.readline().split()
+
+        humidity = "".join(re.findall("[0-9][0-9]+\.+[0-9][0-9]", str(line1)))
+        temp = "".join(re.findall("[0-9][0-9]+\.+[0-9][0-9]", str(line2)))
+
+        # print(humidity)
+        # print(temp)
+
+        values = {"humidity": float(humidity), "temp": float(temp)}
         return values
     
     def closeSerialPort(self):
