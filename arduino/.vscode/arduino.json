@@ -1,0 +1,5 @@
+{
+    "sketch": "temp_reporter_arduino.ino",
+    "board": "arduino:avr:uno",
+    "port": "/dev/tty.usbmodem14401"
+}
