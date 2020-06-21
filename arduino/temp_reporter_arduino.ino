@@ -33,6 +33,36 @@ float brightness = 255;
 
 float THI = 0;
 
+
+float getTHI(float t, float h)
+{
+    float thi = 0.81 * t + 0.01 * h * (0.99 * t - 14.3) + 46.3;
+    int thiInt = (int)(thi * 10);
+    return thiInt / 10.0;
+}
+
+String thiFeeling(float thi)
+{
+    if (thi < 55) {
+        return "VERY COLD";
+    } else if (thi < 60) {
+        return "Cold";
+    } else if (thi < 65) {
+        return "OK";
+    } else if (thi < 70) {
+        return "Comfotable";
+    } else if (thi < 75) {
+        return "OK";
+    } else if (thi < 80) {
+        return "A little hot";
+    } else if (thi < 85) {
+        return "Hot";
+    } else {
+        return "VERY HOT";
+    }
+}
+
+
 void setup() 
 {
     Serial.begin(115200);
@@ -51,11 +81,11 @@ void loop()
     float temp_hum_val[2] = {0};
 
     if (!dht.readTempAndHumidity(temp_hum_val)) {
+        lcd.clear();
         Serial.print(temp_hum_val[0]);
         Serial.print(" ");
         Serial.println(temp_hum_val[1]);
 
-        lcd.setCursor(0, 0);
         lcd.print("T:");
         lcd.setCursor(2, 0);
         lcd.print(temp_hum_val[1]);
@@ -65,14 +95,20 @@ void loop()
         lcd.print(temp_hum_val[0]);
         lcd.setCursor(15, 0);
         lcd.print("%");
+
+        THI = getTHI(temp_hum_val[1], temp_hum_val[0]);
+        lcd.setCursor(0, 1);
+        lcd.print(thiFeeling(THI));
+        lcd.setCursor(14, 1);
+        lcd.print(THI);
     }
     else 
     {
         Serial.println("Faled to get temperature and humidity value.");
-        lcd.setCursor(0, 0);
+        lcd.clear();
         lcd.print("Failed to get");
         lcd.setCursor(0, 1);
         lcd.print("value.");
     }
-    
+    delay(1000);
 }
