@@ -23,6 +23,21 @@ class GetTemp:
 
         values = {"humidity": float(humidity), "temp": float(temp)}
         return values
+
+    def getAverage(self, times):
+        sumHumi = 0
+        sumTemp = 0
+        singleValues = None
+        print("Getting average...")
+
+        for i in range(times):
+            singleValues = self.getFromArduino()
+            print(str(i + 1) + " h: " + str(singleValues["humidity"]) + ", t: " + str(singleValues["temp"]))
+            sumHumi += singleValues["humidity"]
+            sumTemp += singleValues["temp"]
+        
+        print("Done.")
+        return {"humidity": float(sumHumi / times), "temp": float(sumTemp / times)}
     
     def closeSerialPort(self):
         self.ser.close()
