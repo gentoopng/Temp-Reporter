@@ -6,7 +6,7 @@ class Tweet:
     def __init__(self):
         #JSONファイルから接続に必要な情報を読み込む
         self.json_open = open("temp-reporter/twitter_config.json", "r")
-        self.json_load = json.load(json_open)
+        self.json_load = json.load(self.json_open)
 
         self.CK = self.json_load["CONSUMER_KEY"]
         self.CS = self.json_load["CONSUMER_SECRET"]
@@ -14,14 +14,14 @@ class Tweet:
         self.ATS = self.json_load["ACCESS_TOKEN_SECRET"]
 
         #認証処理 
-        self.twitter = OAuth1Session(CK, CS, AT, ATS)
+        self.twitter = OAuth1Session(self.CK, self.CS, self.AT, self.ATS)
 
         self.url = "https://api.twitter.com/1.1/statuses/update.json"
     
     def post(self, content):
         params = {"status": content}
 
-        res = twitter.post(url, params=params)  #post送信
+        res = self.twitter.post(self.url, params=params)  #post送信
 
         if res.status_code == 200:  #正常に投稿できた場合
             print("Success: Tweet")
