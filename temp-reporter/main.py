@@ -1,7 +1,7 @@
 import GetTemp, Tweet
 import time, datetime
 
-interval = 10   # in minute(s)
+interval = 60   # in minute(s)
 
 get = GetTemp.GetTemp("/dev/tty.usbmodem14401", 115200)
 tweet = Tweet.Tweet()
@@ -35,7 +35,7 @@ def main():
     print("10秒後に最初のツイートをします")
     time.sleep(10)
 
-    #tweetIt(content)
+    tweetIt(content)
     print("\n" + content + "\n")
 
     print("これから約" + str(interval) + "分ごとに自動ツイートします\nCtrl+C で終了できます")
@@ -51,7 +51,7 @@ def main():
             print("10秒後にツイートします")
             time.sleep(10)
             print("\n" + content + "\n")
-            #tweetIt(content)
+            tweetIt(content)
             print(str(interval) + "分後にまた自動ツイートします\nCtrl+C で終了できます")
     except KeyboardInterrupt:
         print("終了します")
